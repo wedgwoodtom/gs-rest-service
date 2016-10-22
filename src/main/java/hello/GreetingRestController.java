@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 //  Because Jackson 2 is on the classpath, Spring’s MappingJackson2HttpMessageConverter is automatically
 // chosen to convert the Greeting instance to JSON.
 @RestController
-public class GreetingController
+public class GreetingRestController
 {
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
