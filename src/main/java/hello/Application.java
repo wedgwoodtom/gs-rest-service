@@ -6,6 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+
 /**
  *  This web application is 100% pure Java and you didn’t have to deal with configuring any plumbing or
  *  infrastructure.
@@ -43,17 +46,20 @@ public class Application
 {
     private static final Logger log = LoggerFactory.getLogger(Application.class);
 
+    @Resource
+    private QuoteClient quoteClient;
+
     public static void main(String[] args)
     {
         SpringApplication.run(Application.class, args);
-        callExternalWS();
     }
 
-    static void callExternalWS()
+    @PostConstruct
+    public void init()
     {
-        RestTemplate restTemplate = new RestTemplate();
-        Quote quote = restTemplate.getForObject("http://gturnquist-quoters.cfapps.io/api/random", Quote.class);
-        log.info(quote.toString());
+        // start your monitoring in here
+        quoteClient.getRandomQuote();
+        quoteClient.getRandomQuote();
+        quoteClient.getRandomQuote();
     }
-
 }
